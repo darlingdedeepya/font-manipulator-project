@@ -1,3 +1,7 @@
+difference = 0;
+rightWristX=0;
+leftWristX=0;
+
 function setup(){
     video = createCapture(VIDEO);
     video.size(600, 600);
@@ -15,6 +19,10 @@ function modelLoaded() {
 
 function draw() {
     background('#F3A8BC');
+    document.getElementById('update').innerHTML = "Font Size of Text will be = " + difference + "px";
+    text('DEDEEPYA', 50, 300)
+    textSize(difference)
+    fill('#4C9A2A')
 }
 
 function gotPoses(results)
@@ -22,5 +30,10 @@ function gotPoses(results)
     if(results.length > 0)
     {
         console.log(results);
+        leftWristX = results[0].pose.leftWrist.x;
+        rightWristX = results[0].pose.rightWrist.x;
+        difference = floor(leftWristX - rightWristX);
+
+        console.log("leftWristX = " + leftWristX + "rightWristX = " + rightWristX + "difference = " + difference);
     }
 }
